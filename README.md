@@ -164,6 +164,3 @@ Contributions are welcome! Feel free to open issues or submit pull requests.
 **Vaibhav Verma**
 Aspiring Software Engineer | Full Stack Developer
 
----
-
-⭐ If you like this project, consider giving it a star!
