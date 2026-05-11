@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Search, MapPin, Scale, Sparkles, Filter } from 'lucide-react';
 import api from '../lib/api';
@@ -8,7 +8,7 @@ export default function TraderDashboard() {
   const [myBids, setMyBids] = useState([]);
   const [search, setSearch] = useState('');
 
-  const fetchCrops = async () => {
+  const fetchCrops = useCallback(async () => {
     try {
       const [cropsRes, bidsRes] = await Promise.all([
         api.get(`/crops?search=${search}`),
@@ -19,11 +19,11 @@ export default function TraderDashboard() {
     } catch (err) {
       console.error(err);
     }
-  };
+  }, [search]);
 
   useEffect(() => {
     fetchCrops();
-  }, [search]);
+  }, [fetchCrops]);
 
   const handleBid = async (cropId) => {
     const amount = window.prompt("Enter your bid amount (₹):");

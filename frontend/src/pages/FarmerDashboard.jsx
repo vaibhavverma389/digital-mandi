@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Plus, Camera, Sparkles, TrendingUp, DollarSign } from 'lucide-react';
 import api from '../lib/api';
@@ -8,7 +8,7 @@ export default function FarmerDashboard() {
   const [crops, setCrops] = useState([]);
   const [bids, setBids] = useState([]);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const [cropsRes, bidsRes] = await Promise.all([
         api.get('/crops/farmer'),
@@ -19,11 +19,11 @@ export default function FarmerDashboard() {
     } catch (err) {
       console.error(err);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   const handleBidAction = async (bidId, status) => {
     try {
